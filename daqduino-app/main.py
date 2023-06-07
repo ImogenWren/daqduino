@@ -20,12 +20,12 @@ import matplotlib    #.pyplot as plt
 
 from time import sleep
 
-def findDACduino():
+def findDACduino(default = 14):
     print(f"searching for DAQduino...")
     #print(serial.tools.list_ports())
     ports = list_ports.comports()
     print(ports)
-    return 14
+    return default
 
 def openSerial(com_port, baudrate = 115200):
     print(f"PySerial Version: {serial.__version__}")
@@ -69,7 +69,8 @@ def decodeData(bytes_in):
     #print(int_val)
     return int_val
 
-def printData(data_point):
+def printData(data_point = 0):
+    print(data_point)
 
 
 def closeSerial(ref):
@@ -100,13 +101,14 @@ def updateGraph():
 
 def main():
     print("Starting DAQduino CLI")
-    com_port = findDACduino()
+    com_port = findDACduino(16)
     serial_port = openSerial(com_port)
-    getHeader(serial_port)
+    #getHeader(serial_port)
     while 1:
         bytes_buffer = readBuffer(serial_port)
-        data_point = decodeData(bytes_buffer)
-        print(data_point)
+        #data_point = decodeData(bytes_buffer)
+        #print(data_point)
+        print(bytes_buffer)
     closeSerial(serial_port)
 
 
