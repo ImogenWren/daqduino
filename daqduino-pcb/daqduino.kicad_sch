@@ -3168,7 +3168,7 @@
     (property "Reference" "C1" (at 229.87 22.86 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "470r" (at 229.87 25.4 90)
+    (property "Value" "470n" (at 229.87 25.4 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (at 240.03 27.305 0)

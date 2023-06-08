@@ -1,4 +1,4 @@
-21708503782119673
+21710209336735296
 000-edge-connectors-immo
 1-pin-edge-touch-xl
 PCIexpress Bus Edge Connector x1 http://www.ritrontek.com/uploadfile/2016/1026/20161026105231124.pdf#page=70
@@ -608,6 +608,13 @@ https://docs.arduino.cc/hardware/uno-rev3
 0
 38
 37
+000_Modules_Immo
+Arduino_Uno_R3_Shield-simple
+https://docs.arduino.cc/hardware/uno-rev3
+
+0
+32
+31
 000_Modules_Immo
 CopperPad
 
