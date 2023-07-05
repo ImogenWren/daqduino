@@ -1,0 +1,31 @@
+#,Reference,Qty,Value,Footprint,DNP,JLCpart,RSpart,FarnellPart,supplier,Cost
+1,C1,1,470n,Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,,,,,,
+2,"C2, C3, C4",3,100n,000_Capacitors_Immo:C_0805_2012_HandSolder_kawaii,,C779975,,,,0.02
+3,D1,1,red,Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder,,,,,,
+4,D2,1,yellow,Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder,,,,,,
+5,D3,1,green,Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder,,,,,,
+6,D4,1,blue,Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder,,,,,,
+7,"EC1, EC2",2,100u,Capacitor_SMD:CP_Elec_10x10,,,,,,
+8,J1,1,24v Power Input,000_Connectors_Immo:TerminalBlock_Altech_AK300-2_P5.00mm,,,,,,
+9,J2,1,Sense Current TestPoint,000_Connectors_Immo:TerminalBlock_Altech_AK300-2_P5.00mm,,,,,,
+10,J3,1,Bias Voltage & Resistor Selection,000_Pin_Headers_Immo:PinHeader_2x03_P2.54mm-alt-pin-no,,,,,,
+11,J4,1,Sensor Voltage Selection,000_Pin_Headers_Immo:PinHeader_2x03_P2.54mm-alt-pin-no,,,,,,
+12,J5,1,2 Wire Sensor (4-20mA),000_Connectors_Immo:TerminalBlock_Altech_AK300-2_P5.00mm,,,,,,
+13,J7,1,Micro_SD_Card-molex,000_Connectors_Immo:microSD_HC_Molex_104031-0811,,,,2678573,https://uk.farnell.com/molex/104031-0811/connector-micro-sd-8pos/dp/2678573,
+14,R1,1,220r,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,,,,,,
+15,"R2, R3, R10",3,10k,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,,C2930231,,,,0.002
+16,R4,1,100r,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,,C217766,,,,0.0093
+17,"R5, R6, R7, R8, R9",5,3k3,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,,,,,,
+18,R11,1,4k7,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,,C2930231,,,,0.002
+19,R12,1,2k2,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,,C2930231,,,,0.002
+20,R13,1,1k,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,,C2930231,,,,0.002
+21,TP1,1,24v TestPoint,TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm,,,,,,
+22,TP2,1,12v TestPoint,TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm,,,,,,
+23,TP3,1,5v TestPoint,TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm,,,,,,
+24,TP4,1,3v3 TestPoint,TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm,,,,,,
+25,TP5,1,Bias TestPoint,TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm,,,,,,
+26,TP6,1,Sense Voltage TestPoint,TestPoint:TestPoint_Bridge_Pitch2.54mm_Drill1.0mm,,,,,,
+27,U1,1,LM358,Package_SO:SOIC-8_3.9x4.9mm_P1.27mm,,,689-6719,,https://uk.rs-online.com/web/p/op-amps/6896719?gb=s,
+28,U2,1,L7812,Package_TO_SOT_THT:TO-220-3_Vertical,,,793-1355,,https://uk.rs-online.com/web/p/voltage-regulators/7931355?gb=s,
+29,U3,1,TXS0108EPW,Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm,,,709-4639,,https://uk.rs-online.com/web/p/translator-ics/7094639?gb=s,
+30,XA1,1,Arduino_Uno_R3_Shield,PCM_arduino-library:Arduino_Uno_R3_Shield,,,769-7409,,https://uk.rs-online.com/web/p/arduino/7697409?gb=s,
