@@ -17,14 +17,16 @@
 */
 
 
-#define SHUNT_SENSEPIN A2
+#define VOLTAGE_SENSE_PIN A2
 
 // Use 1.074 for 1.1v reference
-#define ADC_TO_MV_SCALER 1.074
+//#define ADC_TO_MV_SCALER 1.074
 // Use 4.883 for 5v reference
 //#define ADC_TO_MV_SCALER 4.883
 
-#define SHUNT_RESISTOR 1.0
+#define ADC_VOLTS_SCALER 1.0
+
+#define VOLT_AMP_SCALER  
 
 void setup() {
   Serial.begin(115200);
@@ -36,9 +38,9 @@ void loop() {
 
   char buffer[64];                                          // Buffer to hold printed values
 
-  int adc_value = analogRead(SHUNT_SENSEPIN);                // Take Reading
+  int adc_value = analogRead(VOLTAGE_SENSE_PIN);                // Take Reading
 
-  float mV_float =  float(adc_value) * ADC_TO_MV_SCALER;     // Calculate mV measured by ADC
+  float mV_float =  float(adc_value) * ADC_VOLTS_SCALER;     // Calculate mV measured by ADC
 
   float mA_float = mV_float / SHUNT_RESISTOR;                // Calculate mA through shunt resistor
 
