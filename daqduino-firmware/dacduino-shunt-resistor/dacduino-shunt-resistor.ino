@@ -1,21 +1,3 @@
-/*   DAQduino - Firmware - V0.1
-
-          DAQduino is an open-source Data AQuisition (DAQ) Device
-            designed to free researchers and students from
-            the Tyranny of National Instruments and LabVIEW.
-
-            It can be used as a standalone datalogger, saving data to an SD card for later,
-            or it can be interfaced with a veriety of software to gather real-time data and 
-            share this with other devices 
-
-    This is Firmware Version 0.1. It will have reduced functionality while the system is being developed.
-
-    Version 0.1
-    Imogen Wren H.
-    05/07/2023
-
-*/
-
 
 #define SHUNT_SENSEPIN A2
 
@@ -28,7 +10,7 @@
 
 void setup() {
   Serial.begin(115200);
-  //analogReference(INTERNAL);
+  analogReference(INTERNAL);
 
 }
 
