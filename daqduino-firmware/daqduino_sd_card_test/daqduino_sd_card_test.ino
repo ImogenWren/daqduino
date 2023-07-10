@@ -11,7 +11,15 @@
 
   Formatting SD Card:
 
+
   
+
+  ### User Options ###
+  _Potential Options to Include_
+  - no samples to log
+  - logging time
+  - time between data
+  - logging trigger  
 
 
 */
@@ -31,7 +39,7 @@ char logFileName[12];
 
 void SD_setup() {
   Serial.print("Initializing SD card...");
-  if (!SD.begin(SD_SELECT_PIN)) {
+ while (!SD.begin(SD_SELECT_PIN)) {
     Serial.println("SD Card initialization failed!");
     sd_available = false;
     delay(500);
@@ -42,12 +50,15 @@ void SD_setup() {
 }
 
 
-
+// build filename using number passed
 void makeLogFileName(uint16_t logNumber) {
   sprintf(logFileName, "%02i%s", logNumber, logName);
   Serial.print("New File Created: ");
   Serial.println(logFileName);
 }
+
+
+
 
 
 void setup() {
@@ -56,6 +67,15 @@ void setup() {
   makeLogFileName(1);
 }
 
+int i;
 void loop() {
-
+ File logFile = SD.open(logFileName, FILE_WRITE);
+  if (logFile) {
+    logFile.write(i);
+    size_t sizeoflog = sizeof(i);
+    logFile.close();
+    Serial.print(sizeoflog);
+    Serial.println("Bytes Logged to SD Card");
+  }
+  delay(1000);
 }

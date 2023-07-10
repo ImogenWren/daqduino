@@ -80,10 +80,7 @@ Step 4: ...?? Profit ?
 //#define ADC_VOLTS_SCALER 0.0046969       // still slightly too low
 #define ADC_VOLTS_SCALER 0.0047339
 
-//#define VOLT_AMP_SCALER 4.5
-
 #define mA_PER_VOLT 20.3
-
 #define mA_OFFSET 2.06
 #define V_OFFSET 3.295
 
@@ -94,24 +91,21 @@ mA = (Vreading - V_OFFSET)* mA_PER_VOLT + mA_OFFSET
 */
 #define VOLTAGE_SENSE_PIN A2
 
-// Use 1.074 for 1.1v reference
-//#define ADC_TO_MV_SCALER 1.074
-// Use 4.883 for 5v reference
-//#define ADC_TO_MV_SCALER 4.883
 
-#define BENCHMARK_TRUE true
-#define TESTPRINT_FALSE
 
-void setup() {
-  Serial.begin(115200);
-  Serial.println("\n DAQduino - Data AQuisition System");
-  //analogReference(INTERNAL);
-}
+#define BENCHMARK_SAMPLING  // print benchmark testing output for sampling function
+//#define BENCHMARK_LOOP      // print benchmark testing output for entire program loop  // use to check sample rate targets met
+//#define PRINT_RAW_DATA     // Print all raw ADC samples before averaging (for debugging purposes)
+#define SERIAL_PRINT_TRUE  // Print data output to serial monitor (comment out for faster sampling)?
+#define LOG_TO_SD_CARD     // Log data to SD card
+
+
+
 
 
 
 // Function to take multiple samples of ADC and return average of all samples
-int sampleADC(int no_samples = 100) {
+int sampleAverage(int no_samples = 100) {
   uint32_t startTime = millis();  // Take start Time for Benchmarking
 
   // Take samples
@@ -123,8 +117,8 @@ int sampleADC(int no_samples = 100) {
 
 
 
-#ifdef BENCHMARK_TRUE
-#pragma message "Benchmarking Active"
+#ifdef BENCHMARK_SAMPLING
+#pragma message "Sampling Benchmarking Active"
   // For Benchmarking
   uint32_t finishTime = millis();
   uint32_t benchTime = finishTime - startTime;
@@ -135,8 +129,8 @@ int sampleADC(int no_samples = 100) {
   Serial.println();
 #endif
 
-#ifdef TESTPRINT_TRUE
-#pragma message "Test Printing Active"
+#ifdef PRINT_RAW_DATA
+#pragma message "Raw Data Output Enabled"
   for (int i = 0; i < no_samples; i++) {
     Serial.print(i);
     Serial.print("  ADC: ");
@@ -151,41 +145,60 @@ int sampleADC(int no_samples = 100) {
   }
   average = average / no_samples;  // change this to use sizeof array
   int32_t int_av = round(average);
-
   return int_av;
 }
 
 
 
-
-void loop() {
-
+void printData(int adc_value, float V_float, float mA_float) {
   char buffer[64];  // Buffer to hold printed values
-
-  // int adc_value = analogRead(VOLTAGE_SENSE_PIN);  // Take Reading
-
-  int adc_value = sampleADC();  // Take 100 or (n) samples
-
-  float V_float = float(adc_value) * ADC_VOLTS_SCALER;  // Calculate mV measured by ADC
-
-
-  float mA_float = ((V_float - V_OFFSET) * mA_PER_VOLT) + mA_OFFSET;  // Calculate mA detected by op-amp
-
-  // Strings for converting floats for printing
+    // Strings for converting floats for printing
   char V_str[16];
   char mA_str[16];
-
   // Convert floats to string as arduino does not like floats in sprintf
   dtostrf(V_float, 4, 3, V_str);
   dtostrf(mA_float, 4, 3, mA_str);
-
-
   // Place all data into a single buffer & format for printing
   sprintf(buffer, "ADC: %4i  |  V: %s  |  mA: %s ", adc_value, V_str, mA_str);
-
   // Print the buffer
   Serial.println(buffer);
+}
+
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("\n DAQduino - Data AQuisition System");
+  //analogReference(INTERNAL);
+}
+
+
+
+void loop() {
+
+
+  uint32_t startTime = millis();  // Take start Time for Benchmarking
+
+  // int adc_value = analogRead(VOLTAGE_SENSE_PIN);  // Take single ADC Reading
+  int adc_value = sampleAverage();  // Take 100 or (n) samples & average
+
+  float V_float = float(adc_value) * ADC_VOLTS_SCALER;                // Calculate mV measured by ADC
+  float mA_float = ((V_float - V_OFFSET) * mA_PER_VOLT) + mA_OFFSET;  // Calculate mA detected by op-amp
+
+
+  printData(adc_value, V_float, mA_float);  // print data to serial monitor
 
   // Delay to slow down reporting for human readability
-  delay(500);
+  delay(485);  //TODO: Replace this with a proper timer and sample rate conversion that can be checked via benchmarking
+  // Strech function - warn user if true samplerate does not match their selection
+
+#ifdef BENCHMARK_LOOP
+#pragma message "Loop Benchmarking Active"
+  // For Benchmarking
+  uint32_t finishTime = millis();
+  uint32_t benchTime = finishTime - startTime;
+  Serial.print("Loop Benchmarking time: ");
+  Serial.print(benchTime);
+  Serial.print(" mS");
+  Serial.println();
+#endif
 }
