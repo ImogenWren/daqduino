@@ -27,7 +27,7 @@
 #include <SPI.h>
 #include <SD.h>
 
-#define SD_SELECT_PIN 10
+#define SD_SELECT_PIN 5
 
 File logFile;
 
@@ -39,12 +39,13 @@ char logFileName[12];
 
 void SD_setup() {
   Serial.print("Initializing SD card...");
+  int attempts;
  while (!SD.begin(SD_SELECT_PIN)) {
-    Serial.println("SD Card initialization failed!");
-    sd_available = false;
+   Serial.print("Attempt: ");
+   Serial.print(attempts);
+    Serial.println(" SD Card initialization failed!");
+    attempts++;
     delay(500);
-    // while (1);
-    // break;
   }
   Serial.println("SD Card initialization done.");
 }

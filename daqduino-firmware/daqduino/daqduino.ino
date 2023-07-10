@@ -90,7 +90,7 @@ mA = (Vreading - V_OFFSET)* mA_PER_VOLT + mA_OFFSET
 
 */
 #define VOLTAGE_SENSE_PIN A2
-
+#define SD_SELECT_PIN 10
 
 
 #define BENCHMARK_SAMPLING  // print benchmark testing output for sampling function
@@ -99,8 +99,41 @@ mA = (Vreading - V_OFFSET)* mA_PER_VOLT + mA_OFFSET
 #define SERIAL_PRINT_TRUE  // Print data output to serial monitor (comment out for faster sampling)?
 #define LOG_TO_SD_CARD     // Log data to SD card
 
+//#define USE_SDFAT_LIB  // User option to use SD FAT library instead of standard one (untested)
+// If undefined then typical arduino library is used.
+
+#include "sd-functions.h"
 
 
+bool cardAvailable = false;  // must start true then will be made false if SD Cannot be found
+
+
+void SDcardSetup() {
+  pinMode(SD_SELECT_PIN, OUTPUT);
+  Serial.print("\nInitializing SD card...");
+  int attempt;
+  // we'll use the initialization code from the utility libraries
+  while (attempt < 10) {
+#ifdef USE_SDFAT_LIB
+    if (!card.init(SPI_HALF_SPEED, SD_SELECT_PIN))
+#else
+    if (!SD.begin(SD_SELECT_PIN))
+#endif
+    {
+      Serial.print("Attempt: ");
+      Serial.print(attempt);
+      Serial.println("\n\ninitialization failed. Is SD card present?");
+      delay(400);
+      attempt++;
+    } else {
+      Serial.println("Wiring is correct and a card is present.");
+      cardAvailable = true;
+    }
+  }
+  if (!cardAvailable){
+    Serial.println("Too Many Attempts - SD Logging disabled");
+  }
+}
 
 
 
@@ -113,7 +146,7 @@ int sampleAverage(int no_samples = 100) {
   for (int i = 0; i < no_samples; i++) {
     dataArray[i] = analogRead(VOLTAGE_SENSE_PIN);
   }
-  int samplesTaken = sizeof(dataArray) / sizeof(dataArray[0]);
+  int samplesTaken = sizeof(dataArray) / sizeof(dataArray[0]);  // Divide the size of the whole array by the size of 1 index to = the number of indexes
 
 
 
@@ -168,14 +201,13 @@ void printData(int adc_value, float V_float, float mA_float) {
 void setup() {
   Serial.begin(115200);
   Serial.println("\n DAQduino - Data AQuisition System");
-  //analogReference(INTERNAL);
+  //analogReference(INTERNAL); // Only used for analog voltage sampling <1
+  SDcardSetup();
 }
 
 
 
 void loop() {
-
-
   uint32_t startTime = millis();  // Take start Time for Benchmarking
 
   // int adc_value = analogRead(VOLTAGE_SENSE_PIN);  // Take single ADC Reading
@@ -186,6 +218,10 @@ void loop() {
 
 
   printData(adc_value, V_float, mA_float);  // print data to serial monitor
+
+  if (cardAvailable){
+    Serial.println("Logging Data to SD Card");     // debugging messages used during development to ensure program flow is correct. Can be removed later for speed.
+  }
 
   // Delay to slow down reporting for human readability
   delay(485);  //TODO: Replace this with a proper timer and sample rate conversion that can be checked via benchmarking
