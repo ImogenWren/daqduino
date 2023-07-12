@@ -69,8 +69,7 @@ Step 4: ...?? Profit ?
 |ScaleFactor(STV/Voltage)|	 1.0		    |     20.3                   | mA/v  |
 |Offset                  |  3.295       |	     2.06                  |  mA   |	       	
 					
-      sensor_value = ((Vin - Voffset) * ScaleFactor(mA/V)) + mAoffset 					
-
+      sensor_value = ((Vin - Voffset) * ScaleFactor(mA/V)) + mAoffset 			
 
 */
 
@@ -130,7 +129,7 @@ void SDcardSetup() {
       cardAvailable = true;
     }
   }
-  if (!cardAvailable){
+  if (!cardAvailable) {
     Serial.println("Too Many Attempts - SD Logging disabled");
   }
 }
@@ -208,7 +207,7 @@ void setup() {
 
 
 void loop() {
-  uint32_t startTime = millis();  // Take start Time for Benchmarking
+
 
   // int adc_value = analogRead(VOLTAGE_SENSE_PIN);  // Take single ADC Reading
   int adc_value = sampleAverage();  // Take 100 or (n) samples & average
@@ -219,9 +218,7 @@ void loop() {
 
   printData(adc_value, V_float, mA_float);  // print data to serial monitor
 
-  if (cardAvailable){
-    Serial.println("Logging Data to SD Card");     // debugging messages used during development to ensure program flow is correct. Can be removed later for speed.
-  }
+
 
   // Delay to slow down reporting for human readability
   delay(485);  //TODO: Replace this with a proper timer and sample rate conversion that can be checked via benchmarking
@@ -229,12 +226,5 @@ void loop() {
 
 #ifdef BENCHMARK_LOOP
 #pragma message "Loop Benchmarking Active"
-  // For Benchmarking
-  uint32_t finishTime = millis();
-  uint32_t benchTime = finishTime - startTime;
-  Serial.print("Loop Benchmarking time: ");
-  Serial.print(benchTime);
-  Serial.print(" mS");
-  Serial.println();
 #endif
 }

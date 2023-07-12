@@ -20,3 +20,16 @@ timeStruct elapsedTime(uint16_t loop_startTime = 0) {
   strcpy(elapsed.time, timeChar);   // Hacky way of doing this? Now operating at ~ 272 uS for fetching timestamp process strcpy(copied, copyinto)
   return elapsed;
 }
+
+
+
+// Function to calculate local time elapsed for benchmarking purposes. Pass the start time of benchmarking in micros()
+void doBenchmarking(uint32_t benchStart) {
+  uint32_t benchFinish = micros();  // Place this line at the end of process to be benchmarked
+  benchFinish = (benchFinish - benchStart);
+  Serial.print("Benchmark | Time uS: ");
+  Serial.print(benchFinish);
+  Serial.print("  Time mS: ");
+  Serial.println(benchFinish * 0.001);
+  Serial.println("");  // make space at output
+}
