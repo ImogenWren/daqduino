@@ -8,7 +8,6 @@
 #pragma once
 
 
-
 //extracts the integer value from filename format XX_log.txt
 int extractInt(char *filename) {
   char *token = strtok(filename, "_");  // Split the filename at the delimiter "_"
@@ -18,8 +17,6 @@ int extractInt(char *filename) {
  // free(filename);    // compiler warning for this, seen advice that says dont do this
   return fileNum;
 }
-
-
 
  
 // Print the directory found on the SD card. Modified from Arduino Example listFiles
@@ -67,7 +64,6 @@ void printDirectory(File dir, int numTabs) {
     }
   }
 }
-
 
 
 // build filename using number passed. Output Format XX_log.txt

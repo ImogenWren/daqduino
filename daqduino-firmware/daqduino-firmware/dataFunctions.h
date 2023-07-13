@@ -8,9 +8,6 @@
 
 #include "globals.h"
 
-
-
-
 // Function to take multiple samples of ADC and return average of all samples
 int sampleAverage(int no_samples = 100) {
   uint32_t startTime = millis();  // Take start Time for Benchmarking
@@ -21,8 +18,6 @@ int sampleAverage(int no_samples = 100) {
     dataArray[i] = analogRead(VOLTAGE_SENSE_PIN);
   }
   int samplesTaken = sizeof(dataArray) / sizeof(dataArray[0]);  // Divide the size of the whole array by the size of 1 index to = the number of indexes
-
-
 
 #ifdef BENCHMARK_SAMPLING
 #pragma message "Sampling Benchmarking Active"
@@ -51,6 +46,8 @@ int sampleAverage(int no_samples = 100) {
     average = average + dataArray[i];
   }
   average = average / no_samples;  // change this to use sizeof array
-  int32_t int_av = round(average);
+  int32_t int_av = int(round(average));
   return int_av;
 }
+
+

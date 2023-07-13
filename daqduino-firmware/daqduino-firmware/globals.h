@@ -15,11 +15,14 @@
 
 
 // User Defined options
-#define BENCHMARK_SAMPLING  // print benchmark testing output for sampling function
-//#define BENCHMARK_LOOP      // print benchmark testing output for entire program loop  // use to check sample rate targets met
+//#define BENCHMARK_SAMPLING  // print benchmark testing output for sampling function
+#define BENCHMARK_LOOP      // print benchmark testing output for entire program loop  // use to check sample rate targets met
 //#define PRINT_RAW_DATA     // Print all raw ADC samples before averaging (for debugging purposes)
-#define SERIAL_PRINT_TRUE  // Print data output to serial monitor (comment out for faster sampling)?
-#define LOG_TO_SD_CARD     // Log data to SD card
+#define SD_LOGGING_CONFIRM   // prints confirmation that data is logged to SD card
+
+// Not Currently Implemented
+//#define SERIAL_PRINT_TRUE  // Print data output to serial monitor (comment out for faster sampling)?
+//#define LOG_TO_SD_CARD     // Log data to SD card
 
 
 

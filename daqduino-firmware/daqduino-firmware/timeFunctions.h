@@ -1,9 +1,6 @@
 
 #pragma once
 
-
-
-
 // returns a structure containing a string of the complete elapsed time
 timeStruct elapsedTime(uint16_t loop_startTime = 0) {
   char timeChar[13];  // buffer to hold time from start of program
@@ -33,3 +30,5 @@ void doBenchmarking(uint32_t benchStart) {
   Serial.println(benchFinish * 0.001);
   Serial.println("");  // make space at output
 }
+
+

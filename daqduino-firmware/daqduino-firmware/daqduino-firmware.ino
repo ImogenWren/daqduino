@@ -225,7 +225,7 @@ void loop() {
 #ifdef BENCHMARK_LOOP
 #pragma message "Loop Benchmarking Active"
   // Benchmarking printout for testing timing #NOTE - This function call must be placed directly after process being benchmarked
-  doBenchmarking(benchStart);
+  doBenchmarking(benchStart);                        // Benchmarking for total loop (excluding benchmarking function) = 12.31mS
 #endif
 
 

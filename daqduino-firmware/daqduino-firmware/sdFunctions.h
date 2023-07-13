@@ -10,7 +10,6 @@
 #pragma once
 
 
-
 // Sets up the SD card - loops untill SD card is found.
 // Flashes LED while looking for card to let user know no card is present
 
@@ -70,8 +69,10 @@ void log_to_SD(char *dataBuffer) {    // must be *deferenced
     size_t sizeoflog = sizeof(dataBuffer);      // Honestly dont know the status of referencing, nothing this returned seems to be correct any longer but the data is being logged!
     logFile.close();
     // UI message should be disableable
+#ifdef SD_LOGGING_CONFIRM
     Serial.print(sizeoflog);
     Serial.println(" Bytes Logged to SD Card");
+#endif
   } else {
     Serial.print(logFileName);
     Serial.println(" File Not Available");
