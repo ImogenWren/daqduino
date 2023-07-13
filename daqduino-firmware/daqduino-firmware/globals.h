@@ -15,10 +15,11 @@
 
 
 // User Defined options
-//#define BENCHMARK_SAMPLING  // print benchmark testing output for sampling function
+#define BENCHMARK_SAMPLING  // print benchmark testing output for sampling function
 #define BENCHMARK_LOOP      // print benchmark testing output for entire program loop  // use to check sample rate targets met
 //#define PRINT_RAW_DATA     // Print all raw ADC samples before averaging (for debugging purposes)
 #define SD_LOGGING_CONFIRM   // prints confirmation that data is logged to SD card
+#define NUMBER_SD_ATTEMPTS 10   //number of attempts to establish connection to SD card
 
 // Not Currently Implemented
 //#define SERIAL_PRINT_TRUE  // Print data output to serial monitor (comment out for faster sampling)?
@@ -41,8 +42,8 @@ int no_indexes = 0;    // Instead save the number of useful indexes seperately. 
 // Other Global Variables (private)
 int ledState = HIGH;    // Tracks the state of the LED (only used in setup)
 uint32_t loop_startTime;  //used to track time elapsed from first sample
-bool sd_available;   // Track availability of SD card through program, could be used for ensuring that serial output is enabled and data can be gathered even if SD card is broken/missing
-
+bool sd_available = true;   // Track availability of SD card through program, could be used for ensuring that serial output is enabled and data can be gathered even if SD card is broken/missing
+                            // Must start true - is turned false if max attempts is reached
 int entryNumber;  //track and record the number of datapoints recorded into each log
 
 

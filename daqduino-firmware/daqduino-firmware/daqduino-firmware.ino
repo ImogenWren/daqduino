@@ -176,7 +176,9 @@ void logData(dataStruct localData) {
   sprintf(data_buffer, "%04i, %s, %s, %s, \n", entryNumber, timeStamp.time, V_str, mA_str);  // Convert int data to comma delimted string
   Serial.print(data_buffer);                                                                 // Print data to serial monitor
   // Log Data to SD Card
-  log_to_SD(data_buffer);
+  if (sd_available) {
+    log_to_SD(data_buffer);
+  }
   entryNumber++;  // increment entry number for next loop
 }
 
@@ -191,7 +193,7 @@ void logData(dataStruct localData) {
 // Setup function runs once
 void setup() {
   Serial.begin(115200);                                 // Open Serial Communication
-  Serial.println("\n\nDAQduino - SD Card - Test Log");  // Provide header for Command Line UI
+  Serial.println("\n\nDAQduino - Data AQuisition System");  // Provide header for Command Line UI
   pinMode(LED_PIN, OUTPUT);                             // Use the LED to flash when no SD card can be found. Also goes HIGH when file is unavailable
   SD_setup();                                           // Open SD Card Communications
   logFile_setup();                                      // Sets up file system with new unique log number in the form XX_LOG.TXT
@@ -225,7 +227,7 @@ void loop() {
 #ifdef BENCHMARK_LOOP
 #pragma message "Loop Benchmarking Active"
   // Benchmarking printout for testing timing #NOTE - This function call must be placed directly after process being benchmarked
-  doBenchmarking(benchStart);                        // Benchmarking for total loop (excluding benchmarking function) = 12.31mS
+  doBenchmarking(benchStart);  // Benchmarking for total loop (excluding benchmarking function) = 12.31mS
 #endif
 
 

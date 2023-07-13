@@ -29,6 +29,11 @@ void SD_setup() {
     } else {
       ledState = HIGH;
     }
+    if (attempts > NUMBER_SD_ATTEMPTS) {  // If tried too many times then exit loop and start running program anyway
+      sd_available = false;
+      digitalWrite(LED_PIN, HIGH);  // remains high as sd is unavailable
+      break;
+    }
   }
   Serial.println("SD Card initialization done.");
   digitalWrite(LED_BUILTIN, LOW);  // turn the LED off
@@ -61,12 +66,12 @@ void logFile_setup() {
 
 
 // Log passed string to SD card
-void log_to_SD(char *dataBuffer) {    // must be *deferenced
+void log_to_SD(char *dataBuffer) {  // must be *deferenced
   // Log Data to SD Card
   File logFile = SD.open(logFileName, FILE_WRITE);  // Current Benchmark test ~20 mS
   if (logFile) {
-    logFile.write(dataBuffer);                 // Must not be *deferenced
-    size_t sizeoflog = sizeof(dataBuffer);      // Honestly dont know the status of referencing, nothing this returned seems to be correct any longer but the data is being logged!
+    logFile.write(dataBuffer);              // Must not be *deferenced
+    size_t sizeoflog = sizeof(dataBuffer);  // Honestly dont know the status of referencing, nothing this returned seems to be correct any longer but the data is being logged!
     logFile.close();
     // UI message should be disableable
 #ifdef SD_LOGGING_CONFIRM
